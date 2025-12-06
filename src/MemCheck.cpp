@@ -253,7 +253,13 @@ public:
 
       // Get the identifier associated with the variable
       int64_t varId = Var->getID();
-      PointerState currState = stateMap.at(varId);
+      PointerState currState = UNKNOWN;
+
+      try {
+        currState = stateMap.at(varId);
+      } catch (std::out_of_range) {
+        // return false;
+      }
 
       // printInfo("Attempting to free: " + std::to_string(varId));
 
